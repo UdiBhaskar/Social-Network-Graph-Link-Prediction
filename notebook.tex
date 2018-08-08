@@ -1,0 +1,2502 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Social network Graph Link Prediction - Facebook Challenge}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    Social network Graph Link Prediction - Facebook Challenge
+
+    \subsubsection{Problem statement:}\label{problem-statement}
+
+Given a directed social graph, have to predict missing links to
+recommend users (Link Prediction in graph)
+
+    \subsubsection{Data Overview}\label{data-overview}
+
+Taken data from facebook's recruting challenge on kaggle
+https://www.kaggle.com/c/FacebookRecruiting\\
+data contains two columns source and destination eac edge in graph -
+Data columns (total 2 columns):\\
+- source\_node int64\\
+- destination\_node int64
+
+    \subsubsection{Mapping the problem into supervised learning
+problem:}\label{mapping-the-problem-into-supervised-learning-problem}
+
+\begin{itemize}
+\tightlist
+\item
+  Generated training samples of good and bad links from given directed
+  graph and for each link got some features like no of followers, is he
+  followed back, page rank, katz score, adar index, some svd fetures of
+  adj matrix, some weight features etc. and trained ml model based on
+  these features to predict link.
+\item
+  Some reference papers and videos :
+
+  \begin{itemize}
+  \tightlist
+  \item
+    https://www.cs.cornell.edu/home/kleinber/link-pred.pdf
+  \item
+    https://www3.nd.edu/\textasciitilde{}dial/publications/lichtenwalter2010new.pdf
+  \item
+    https://kaggle2.blob.core.windows.net/forum-message-attachments/2594/supervised\_link\_prediction.pdf
+  \item
+    https://www.youtube.com/watch?v=2M77Hgy17cg
+  \end{itemize}
+\end{itemize}
+
+    \subsubsection{Business objectives and
+constraints:}\label{business-objectives-and-constraints}
+
+\begin{itemize}
+\tightlist
+\item
+  No low-latency requirement.
+\item
+  Probability of prediction is useful to recommend ighest probability
+  links
+\end{itemize}
+
+    \subsubsection{Performance metric for supervised
+learning:}\label{performance-metric-for-supervised-learning}
+
+\begin{itemize}
+\tightlist
+\item
+  Both precision and recall is important so F1 score is good choice
+\item
+  Confusion matrix
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{}Importing Libraries}
+        \PY{c+c1}{\PYZsh{} please do go through this python notebook: }
+        \PY{k+kn}{import} \PY{n+nn}{csv}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}\PY{c+c1}{\PYZsh{}pandas to create small dataframes }
+        \PY{k+kn}{import} \PY{n+nn}{datetime} \PY{c+c1}{\PYZsh{}Convert to unix time}
+        \PY{k+kn}{import} \PY{n+nn}{time} \PY{c+c1}{\PYZsh{}Convert to unix time}
+        \PY{c+c1}{\PYZsh{} if numpy is not installed already : pip3 install numpy}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}\PY{c+c1}{\PYZsh{}Do aritmetic operations on arrays}
+        \PY{c+c1}{\PYZsh{} matplotlib: used to plot graphs}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pylab} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}\PY{c+c1}{\PYZsh{}Plots}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{rcParams}\PY{c+c1}{\PYZsh{}Size of plots  }
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{MiniBatchKMeans}\PY{p}{,} \PY{n}{KMeans}\PY{c+c1}{\PYZsh{}Clustering}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        \PY{k+kn}{import} \PY{n+nn}{pickle}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{c+c1}{\PYZsh{} to install xgboost: pip3 install xgboost}
+        \PY{k+kn}{import} \PY{n+nn}{xgboost} \PY{k}{as} \PY{n+nn}{xgb}
+        \PY{c+c1}{\PYZsh{} to install sklearn: pip install \PYZhy{}U scikit\PYZhy{}learn}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestRegressor}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}squared\PYZus{}error}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}absolute\PYZus{}error}
+        \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{k+kn}{import} \PY{n+nn}{networkx} \PY{k}{as} \PY{n+nn}{nx}
+        \PY{k+kn}{import} \PY{n+nn}{pdb}
+        \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ignore}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/glob/intel-python/versions/2018u2/intelpython3/lib/python3.6/site-packages/sklearn/ensemble/weight\_boosting.py:29: DeprecationWarning: numpy.core.umath\_tests is an internal NumPy module and should not be imported. It will be removed in a future NumPy release.
+  from numpy.core.umath\_tests import inner1d
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}reading df}
+        \PY{n}{traincsv} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}chacking if any null values in given graph }
+        \PY{n}{traincsv}\PY{p}{[}\PY{n}{traincsv}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} Empty DataFrame
+        Columns: [source\_node, destination\_node]
+        Index: []
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}info of given data set}
+        \PY{n}{traincsv}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 9437519 entries, 0 to 9437518
+Data columns (total 2 columns):
+source\_node         int64
+destination\_node    int64
+dtypes: int64(2)
+memory usage: 144.0 MB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}no of duplicates}
+        \PY{n+nb}{sum}\PY{p}{(}\PY{n}{traincsv}\PY{o}{.}\PY{n}{duplicated}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} 0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{}removing header and saving}
+        \PY{n}{traincsv}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train\PYZus{}woheader.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{header}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}Getting basic info from our data}
+        \PY{n}{g}\PY{o}{=}\PY{n}{nx}\PY{o}{.}\PY{n}{read\PYZus{}edgelist}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train\PYZus{}woheader.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{delimiter}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{create\PYZus{}using}\PY{o}{=}\PY{n}{nx}\PY{o}{.}\PY{n}{DiGraph}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{nodetype}\PY{o}{=}\PY{n+nb}{int}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{nx}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{n}{g}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Name: 
+Type: DiGraph
+Number of nodes: 1862220
+Number of edges: 9437519
+Average in degree:   5.0679
+Average out degree:   5.0679
+
+    \end{Verbatim}
+
+    \subsection{EDA}\label{eda}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} No of Unique persons }
+        \PY{n+nb}{len}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{nodes}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} 1862220
+\end{Verbatim}
+            
+    \subparagraph{No of followers for each
+person}\label{no-of-followers-for-each-person}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{indegree\PYZus{}dist} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{in\PYZus{}degree}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{indegree\PYZus{}dist}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{indegree\PYZus{}dist}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Index No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No Of Followers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{indegree\PYZus{}dist} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{in\PYZus{}degree}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{indegree\PYZus{}dist}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{indegree\PYZus{}dist}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{1500000}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Index No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No Of Followers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{indegree\PYZus{}dist}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No Of Followers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} 90\PYZhy{}100 percentile}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{90}\PY{o}{+}\PY{n}{i}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{percentile value is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{percentile}\PY{p}{(}\PY{n}{indegree\PYZus{}dist}\PY{p}{,}\PY{l+m+mi}{90}\PY{o}{+}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+90 percentile value is 12.0
+91 percentile value is 13.0
+92 percentile value is 14.0
+93 percentile value is 15.0
+94 percentile value is 17.0
+95 percentile value is 19.0
+96 percentile value is 21.0
+97 percentile value is 24.0
+98 percentile value is 29.0
+99 percentile value is 40.0
+100 percentile value is 552.0
+
+    \end{Verbatim}
+
+    99\% of data having followers of 40 only.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} 99\PYZhy{}100 percentile}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{110}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{99}\PY{o}{+}\PY{p}{(}\PY{n}{i}\PY{o}{/}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{percentile value is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{percentile}\PY{p}{(}\PY{n}{indegree\PYZus{}dist}\PY{p}{,}\PY{l+m+mi}{99}\PY{o}{+}\PY{p}{(}\PY{n}{i}\PY{o}{/}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+99.1 percentile value is 42.0
+99.2 percentile value is 44.0
+99.3 percentile value is 47.0
+99.4 percentile value is 50.0
+99.5 percentile value is 55.0
+99.6 percentile value is 61.0
+99.7 percentile value is 70.0
+99.8 percentile value is 84.0
+99.9 percentile value is 112.0
+100.0 percentile value is 552.0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ticks}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{set\PYZus{}size\PYZus{}inches}\PY{p}{(}\PY{l+m+mf}{11.7}\PY{p}{,} \PY{l+m+mf}{8.27}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{indegree\PYZus{}dist}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}16A085}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDF of Indegree}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}plt.show()}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subparagraph{No of people each person is
+following}\label{no-of-people-each-person-is-following}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{outdegree\PYZus{}dist} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{out\PYZus{}degree}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{outdegree\PYZus{}dist}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{outdegree\PYZus{}dist}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Index No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No Of people each person is following}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{indegree\PYZus{}dist} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{in\PYZus{}degree}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{indegree\PYZus{}dist}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{outdegree\PYZus{}dist}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{1500000}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Index No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No Of people each person is following}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{indegree\PYZus{}dist}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No Of people each person is following}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} 90\PYZhy{}100 percentile}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{90}\PY{o}{+}\PY{n}{i}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{percentile value is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{percentile}\PY{p}{(}\PY{n}{outdegree\PYZus{}dist}\PY{p}{,}\PY{l+m+mi}{90}\PY{o}{+}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+90 percentile value is 12.0
+91 percentile value is 13.0
+92 percentile value is 14.0
+93 percentile value is 15.0
+94 percentile value is 17.0
+95 percentile value is 19.0
+96 percentile value is 21.0
+97 percentile value is 24.0
+98 percentile value is 29.0
+99 percentile value is 40.0
+100 percentile value is 1566.0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} 99\PYZhy{}100 percentile}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{110}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{99}\PY{o}{+}\PY{p}{(}\PY{n}{i}\PY{o}{/}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{percentile value is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{percentile}\PY{p}{(}\PY{n}{outdegree\PYZus{}dist}\PY{p}{,}\PY{l+m+mi}{99}\PY{o}{+}\PY{p}{(}\PY{n}{i}\PY{o}{/}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+99.1 percentile value is 42.0
+99.2 percentile value is 45.0
+99.3 percentile value is 48.0
+99.4 percentile value is 52.0
+99.5 percentile value is 56.0
+99.6 percentile value is 63.0
+99.7 percentile value is 73.0
+99.8 percentile value is 90.0
+99.9 percentile value is 123.0
+100.0 percentile value is 1566.0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ticks}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{set\PYZus{}size\PYZus{}inches}\PY{p}{(}\PY{l+m+mf}{11.7}\PY{p}{,} \PY{l+m+mf}{8.27}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{outdegree\PYZus{}dist}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}16A085}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDF of Outdegree}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No of persons those are not following anyone are}\PY{l+s+s1}{\PYZsq{}} \PY{p}{,}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{outdegree\PYZus{}dist}\PY{p}{)}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{and }\PY{l+s+si}{\PYZpc{} i}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                         \PY{n+nb}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{outdegree\PYZus{}dist}\PY{p}{)}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{outdegree\PYZus{}dist}\PY{p}{)} \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+No of persons those are not following anyone are 274512 and \% is 14.741115442858524
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No of persons having zero followers are}\PY{l+s+s1}{\PYZsq{}} \PY{p}{,}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{indegree\PYZus{}dist}\PY{p}{)}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{and }\PY{l+s+si}{\PYZpc{} i}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                         \PY{n+nb}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{indegree\PYZus{}dist}\PY{p}{)}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{indegree\PYZus{}dist}\PY{p}{)} \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+No of persons having zero followers are 188043 and \% is 10.097786512871734
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{count}\PY{o}{=}\PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{g}\PY{o}{.}\PY{n}{nodes}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{predecessors}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{==}\PY{l+m+mi}{0} \PY{p}{:}
+                 \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{successors}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{:}
+                     \PY{n}{count}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No of persons those are not not following anyone and also not having any followers are}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{count}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+No of persons those are not not following anyone and also not having any followers are 0
+
+    \end{Verbatim}
+
+    \subparagraph{both followers +
+following}\label{both-followers-following}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k+kn}{from} \PY{n+nn}{collections} \PY{k}{import} \PY{n}{Counter}
+         \PY{n}{dict\PYZus{}in} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{in\PYZus{}degree}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dict\PYZus{}out} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{out\PYZus{}degree}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{d} \PY{o}{=} \PY{n}{Counter}\PY{p}{(}\PY{n}{dict\PYZus{}in}\PY{p}{)} \PY{o}{+} \PY{n}{Counter}\PY{p}{(}\PY{n}{dict\PYZus{}out}\PY{p}{)}
+         \PY{n}{in\PYZus{}out\PYZus{}degree} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{d}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{in\PYZus{}out\PYZus{}degree\PYZus{}sort} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{in\PYZus{}out\PYZus{}degree}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{in\PYZus{}out\PYZus{}degree\PYZus{}sort}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Index No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No Of people each person is following + followers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{in\PYZus{}out\PYZus{}degree\PYZus{}sort} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{in\PYZus{}out\PYZus{}degree}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{in\PYZus{}out\PYZus{}degree\PYZus{}sort}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{1500000}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Index No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No Of people each person is following + followers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} 90\PYZhy{}100 percentile}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{90}\PY{o}{+}\PY{n}{i}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{percentile value is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{percentile}\PY{p}{(}\PY{n}{in\PYZus{}out\PYZus{}degree\PYZus{}sort}\PY{p}{,}\PY{l+m+mi}{90}\PY{o}{+}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+90 percentile value is 24.0
+91 percentile value is 26.0
+92 percentile value is 28.0
+93 percentile value is 31.0
+94 percentile value is 33.0
+95 percentile value is 37.0
+96 percentile value is 41.0
+97 percentile value is 48.0
+98 percentile value is 58.0
+99 percentile value is 79.0
+100 percentile value is 1579.0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} 99\PYZhy{}100 percentile}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{110}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{99}\PY{o}{+}\PY{p}{(}\PY{n}{i}\PY{o}{/}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{percentile value is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{percentile}\PY{p}{(}\PY{n}{in\PYZus{}out\PYZus{}degree\PYZus{}sort}\PY{p}{,}\PY{l+m+mi}{99}\PY{o}{+}\PY{p}{(}\PY{n}{i}\PY{o}{/}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+99.1 percentile value is 83.0
+99.2 percentile value is 87.0
+99.3 percentile value is 93.0
+99.4 percentile value is 99.0
+99.5 percentile value is 108.0
+99.6 percentile value is 120.0
+99.7 percentile value is 138.0
+99.8 percentile value is 168.0
+99.9 percentile value is 221.0
+100.0 percentile value is 1579.0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Min of no of followers + following is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{in\PYZus{}out\PYZus{}degree}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{in\PYZus{}out\PYZus{}degree}\PY{o}{==}\PY{n}{in\PYZus{}out\PYZus{}degree}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ persons having minimum no of followers + following}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Min of no of followers + following is 1
+334291  persons having minimum no of followers + following
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Max of no of followers + following is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{in\PYZus{}out\PYZus{}degree}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{in\PYZus{}out\PYZus{}degree}\PY{o}{==}\PY{n}{in\PYZus{}out\PYZus{}degree}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ persons having maximum no of followers + following}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Max of no of followers + following is 1579
+1  persons having maximum no of followers + following
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No of persons having followers + following less than 10 are}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{in\PYZus{}out\PYZus{}degree}\PY{o}{\PYZlt{}}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+No of persons having followers + following less than 10 are 1320326
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No of weakly connected components}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{nx}\PY{o}{.}\PY{n}{weakly\PYZus{}connected\PYZus{}components}\PY{p}{(}\PY{n}{g}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{count}\PY{o}{=}\PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{nx}\PY{o}{.}\PY{n}{weakly\PYZus{}connected\PYZus{}components}\PY{p}{(}\PY{n}{g}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{o}{==}\PY{l+m+mi}{2}\PY{p}{:}
+                 \PY{n}{count}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weakly connected components wit 2 nodes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{count}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+No of weakly connected components 45558
+weakly connected components wit 2 nodes 32195
+
+    \end{Verbatim}
+
+    \paragraph{Adjacency\_matrix}\label{adjacency_matrix}
+
+https://en.wikipedia.org/wiki/Adjacency\_matrix
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{Adj} \PY{o}{=} \PY{n}{nx}\PY{o}{.}\PY{n}{adjacency\PYZus{}matrix}\PY{p}{(}\PY{n}{g}\PY{p}{,}\PY{n}{nodelist}\PY{o}{=}\PY{n+nb}{sorted}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{nodes}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{Adj} \PY{o}{=} \PY{n}{Adj}\PY{o}{.}\PY{n}{asfptype}\PY{p}{(}\PY{p}{)}
+        \PY{n}{Adj}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} <1862220x1862220 sparse matrix of type '<class 'numpy.float64'>'
+        	with 9437519 stored elements in Compressed Sparse Row format>
+\end{Verbatim}
+            
+    \subsection{Feature Engineering}\label{feature-engineering}
+
+    \subsubsection{SVD}\label{svd}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{sparse}\PY{n+nn}{.}\PY{n+nn}{linalg} \PY{k}{import} \PY{n}{svds}\PY{p}{,} \PY{n}{eigs}
+         \PY{n}{U}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{V} \PY{o}{=} \PY{n}{svds}\PY{p}{(}\PY{n}{Adj}\PY{p}{,}\PY{n}{k} \PY{o}{=} \PY{l+m+mi}{6}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{U}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} array([[-1.55540638e-14,  1.84913121e-12,  9.16782456e-13,
+                  1.88607870e-14, -2.53957870e-14, -1.57540975e-16],
+                [-1.12760445e-13,  1.25423327e-11,  1.21699839e-11,
+                  9.70220289e-14, -6.78741222e-13, -1.05714474e-15],
+                [-9.96808060e-12,  1.68923622e-11,  1.00421545e-09,
+                  3.05244303e-10, -5.58126166e-12, -3.72892383e-13],
+                {\ldots},
+                [-1.49524910e-14,  2.10390639e-12,  3.93555671e-12,
+                  1.61468941e-13, -8.28056607e-13, -3.32965943e-15],
+                [-3.43019958e-12,  1.20274196e-13,  9.65019553e-07,
+                  6.49192604e-14, -9.94221159e-13, -5.76869029e-13],
+                [-3.51042566e-15,  8.67842631e-15,  1.00672793e-13,
+                  3.89617678e-14, -3.00374684e-15, -2.55704233e-16]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{U Shape}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{U}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{V Shape}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{V}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s Shape}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{s}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+U Shape (1862220, 6)
+V Shape (6, 1862220)
+s Shape (6,)
+
+    \end{Verbatim}
+
+    \subsubsection{Similarity measures}\label{similarity-measures}
+
+    \paragraph{Jaccard Distance:}\label{jaccard-distance}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{}for followees}
+         \PY{k}{def} \PY{n+nf}{jaccard\PYZus{}for\PYZus{}followees}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{successors}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}  \PY{o}{|} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{successors}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{0}
+             \PY{n}{sim} \PY{o}{=} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{successors}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{intersection}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{successors}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PYZbs{}
+                                             \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{successors}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{union}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{successors}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{sim}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{}one test case}
+         \PY{n}{jaccard\PYZus{}for\PYZus{}followees}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1615927}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} 0.03225806451612903
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{c+c1}{\PYZsh{}for followers}
+         \PY{k}{def} \PY{n+nf}{jaccard\PYZus{}for\PYZus{}followers}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{predecessors}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}  \PY{o}{|} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{predecessors}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{0}
+             \PY{n}{sim} \PY{o}{=} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{predecessors}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{intersection}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{predecessors}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PYZbs{}
+                                          \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{predecessors}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{union}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{predecessors}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{sim}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{jaccard\PYZus{}for\PYZus{}followers}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{470294}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} 0.041666666666666664
+\end{Verbatim}
+            
+    \paragraph{Cosine distance}\label{cosine-distance}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{}for followees}
+         \PY{k}{def} \PY{n+nf}{cosine\PYZus{}for\PYZus{}followees}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{successors}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}  \PY{o}{|} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{successors}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{0}
+             \PY{n}{sim} \PY{o}{=} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{successors}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{intersection}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{successors}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PYZbs{}
+                                         \PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{successors}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n+nb}{len}\PY{p}{(}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{successors}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{sim}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{cosine\PYZus{}for\PYZus{}followees}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1615927}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} 0.08006407690254357
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{k}{def} \PY{n+nf}{cosine\PYZus{}for\PYZus{}followers}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{predecessors}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}  \PY{o}{|} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{predecessors}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{0}
+             \PY{n}{sim} \PY{o}{=} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{predecessors}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{intersection}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{predecessors}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PYZbs{}
+                                          \PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{predecessors}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{predecessors}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{sim}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{cosine\PYZus{}for\PYZus{}followers}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{470294}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} 0.023809523809523808
+\end{Verbatim}
+            
+    \subsubsection{Ranking Measures}\label{ranking-measures}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{pr} \PY{o}{=} \PY{n}{nx}\PY{o}{.}\PY{n}{pagerank}\PY{p}{(}\PY{n}{g}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.85}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{pr}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} 1862220
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}csv reading}
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train\PYZus{}woheader.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{names}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:}    Source  Destination
+         0       1       690569
+         1       1       315892
+         2       1       189226
+         3       2       834328
+         4       2      1615927
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{c+c1}{\PYZsh{}getting all set of edges}
+         \PY{n}{r} \PY{o}{=} \PY{n}{csv}\PY{o}{.}\PY{n}{reader}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train\PYZus{}woheader.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{edges} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{edge} \PY{o+ow}{in} \PY{n}{r}\PY{p}{:}
+             \PY{n}{edges}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{p}{(}\PY{n}{edge}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{edge}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{Generating some edges which are not present in graph for
+supervised
+learning}\label{generating-some-edges-which-are-not-present-in-graph-for-supervised-learning}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{k+kn}{import} \PY{n+nn}{random}
+         \PY{n}{missing\PYZus{}edges} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{k}{while} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{missing\PYZus{}edges}\PY{p}{)}\PY{o}{\PYZlt{}}\PY{l+m+mi}{9437519}\PY{p}{)}\PY{p}{:}
+             \PY{n}{a}\PY{o}{=}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1862220}\PY{p}{)}
+             \PY{n}{b}\PY{o}{=}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1862220}\PY{p}{)}
+             \PY{k}{if} \PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{edges}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{a}\PY{o}{!=}\PY{n}{b}\PY{p}{:}
+                     \PY{n}{missing\PYZus{}edges}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{continue}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{continue}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{c+c1}{\PYZsh{}printing 10 missing edges}
+         \PY{n+nb}{list}\PY{p}{(}\PY{n}{missing\PYZus{}edges}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}52}]:} [(1293152, 1800897),
+          (420967, 1072419),
+          (970737, 1444392),
+          (1853675, 1452068),
+          (507506, 1474755),
+          (1186502, 1835133),
+          (1659674, 90875),
+          (1857255, 507654),
+          (1434433, 1418683),
+          (328834, 579284)]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{c+c1}{\PYZsh{}checking in graph}
+         \PY{n}{g}\PY{o}{.}\PY{n}{has\PYZus{}edge}\PY{p}{(}\PY{l+m+mi}{446240}\PY{p}{,} \PY{l+m+mi}{834358}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}53}]:} False
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{df\PYZus{}neg} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{missing\PYZus{}edges}\PY{p}{)}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{df\PYZus{}neg}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:}     Source  Destination
+         0  1293152      1800897
+         1   420967      1072419
+         2   970737      1444392
+         3  1853675      1452068
+         4   507506      1474755
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{c+c1}{\PYZsh{}concatinating both }
+         \PY{n}{final}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{df\PYZus{}neg}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{final}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 18875038 entries, 0 to 9437518
+Data columns (total 2 columns):
+Source         int64
+Destination    int64
+dtypes: int64(2)
+memory usage: 432.0 MB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{final}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} (18875038, 2)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{listofones} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{*} \PY{l+m+mi}{9437519}
+         \PY{n}{listofzeroes} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*} \PY{l+m+mi}{9437519}
+         \PY{n}{listofones}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{listofzeroes}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{Shortest path:}\label{shortest-path}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{c+c1}{\PYZsh{}if has direct edge then deleting that edge and calculating sgotest path}
+         \PY{k}{def} \PY{n+nf}{compute\PYZus{}shortest\PYZus{}path\PYZus{}length}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}\PY{p}{:}
+             \PY{n}{p}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+             \PY{k}{try}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{g}\PY{o}{.}\PY{n}{has\PYZus{}edge}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{g}\PY{o}{.}\PY{n}{remove\PYZus{}edge}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+                     \PY{n}{p}\PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{nx}\PY{o}{.}\PY{n}{shortest\PYZus{}path}\PY{p}{(}\PY{n}{g}\PY{p}{,}\PY{n}{source}\PY{o}{=}\PY{n}{a}\PY{p}{,}\PY{n}{target}\PY{o}{=}\PY{n}{b}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+                     \PY{n}{g}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{p}\PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{nx}\PY{o}{.}\PY{n}{shortest\PYZus{}path}\PY{p}{(}\PY{n}{g}\PY{p}{,}\PY{n}{source}\PY{o}{=}\PY{n}{a}\PY{p}{,}\PY{n}{target}\PY{o}{=}\PY{n}{b}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+                 \PY{k}{return} \PY{n}{p}
+             \PY{k}{except}\PY{p}{:}
+                 \PY{k}{return} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{c+c1}{\PYZsh{}testing}
+         \PY{n}{compute\PYZus{}shortest\PYZus{}path\PYZus{}length}\PY{p}{(}\PY{l+m+mi}{77697}\PY{p}{,} \PY{l+m+mi}{826021}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}61}]:} 10
+\end{Verbatim}
+            
+    \paragraph{Checking for same
+community}\label{checking-for-same-community}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{wcc}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n}{nx}\PY{o}{.}\PY{n}{weakly\PYZus{}connected\PYZus{}components}\PY{p}{(}\PY{n}{g}\PY{p}{)}\PY{p}{)}
+         \PY{k}{def} \PY{n+nf}{belongs\PYZus{}to\PYZus{}same\PYZus{}wcc}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}\PY{p}{:}
+             \PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{if} \PY{n}{g}\PY{o}{.}\PY{n}{has\PYZus{}edge}\PY{p}{(}\PY{n}{b}\PY{p}{,}\PY{n}{a}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{1}
+             \PY{k}{if} \PY{n}{g}\PY{o}{.}\PY{n}{has\PYZus{}edge}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{wcc}\PY{p}{:}
+                         \PY{k}{if} \PY{n}{a} \PY{o+ow}{in} \PY{n}{i}\PY{p}{:}
+                             \PY{n}{index}\PY{o}{=} \PY{n}{i}
+                             \PY{k}{break}
+                     \PY{k}{if} \PY{p}{(}\PY{n}{b} \PY{o+ow}{in} \PY{n}{index}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{g}\PY{o}{.}\PY{n}{remove\PYZus{}edge}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+                         \PY{k}{if} \PY{n}{compute\PYZus{}shortest\PYZus{}path\PYZus{}length}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}\PY{o}{==}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+                             \PY{n}{g}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+                             \PY{k}{return} \PY{l+m+mi}{0}
+                         \PY{k}{else}\PY{p}{:}
+                             \PY{n}{g}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+                             \PY{k}{return} \PY{l+m+mi}{1}
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{k}{return} \PY{l+m+mi}{0}
+             \PY{k}{else}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{wcc}\PY{p}{:}
+                         \PY{k}{if} \PY{n}{a} \PY{o+ow}{in} \PY{n}{i}\PY{p}{:}
+                             \PY{n}{index}\PY{o}{=} \PY{n}{i}
+                             \PY{k}{break}
+                     \PY{k}{if}\PY{p}{(}\PY{n}{b} \PY{o+ow}{in} \PY{n}{index}\PY{p}{)}\PY{p}{:}
+                         \PY{k}{return} \PY{l+m+mi}{1}
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{k}{return} \PY{l+m+mi}{0}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{belongs\PYZus{}to\PYZus{}same\PYZus{}wcc}\PY{p}{(}\PY{l+m+mi}{861}\PY{p}{,} \PY{l+m+mi}{1659750}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}63}]:} 0
+\end{Verbatim}
+            
+    \paragraph{Adamic/Adar Index}\label{adamicadar-index}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{k}{def} \PY{n+nf}{calc\PYZus{}adar\PYZus{}in}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{sum}\PY{o}{=}\PY{l+m+mi}{0}
+             \PY{n}{n}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{successors}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{intersection}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{successors}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{o}{!=}\PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{n}\PY{p}{:}
+                     \PY{n+nb}{sum}\PY{o}{=}\PY{n+nb}{sum}\PY{o}{+}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{predecessors}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{return} \PY{n+nb}{sum}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{0}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{calc\PYZus{}adar\PYZus{}in}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{189226}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:} 0.6838083759938891
+\end{Verbatim}
+            
+    \paragraph{Is persion was following
+back:}\label{is-persion-was-following-back}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{k}{def} \PY{n+nf}{follows\PYZus{}back}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{g}\PY{o}{.}\PY{n}{has\PYZus{}edge}\PY{p}{(}\PY{n}{b}\PY{p}{,}\PY{n}{a}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{1}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{0}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{follows\PYZus{}back}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{189226}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}68}]:} 1
+\end{Verbatim}
+            
+    \paragraph{Katz Centrality:}\label{katz-centrality}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{katz} \PY{o}{=} \PY{n}{nx}\PY{o}{.}\PY{n}{katz}\PY{o}{.}\PY{n}{katz\PYZus{}centrality}\PY{p}{(}\PY{n}{g}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.005}\PY{p}{,}\PY{n}{beta}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}import pickle}
+         \PY{c+c1}{\PYZsh{}katz = pickle.load(open(\PYZsq{}katz.p\PYZsq{},\PYZsq{}rb\PYZsq{}))}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{katz}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} 1862220
+\end{Verbatim}
+            
+    \paragraph{Hits Score}\label{hits-score}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{hits} \PY{o}{=} \PY{n}{nx}\PY{o}{.}\PY{n}{hits}\PY{p}{(}\PY{n}{g}\PY{p}{,} \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}08}\PY{p}{,} \PY{n}{nstart}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{normalized}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}hits = pickle.load(open(\PYZsq{}hits.p\PYZsq{},\PYZsq{}rb\PYZsq{}))}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{hits}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} 2
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{hits}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} 1862220
+\end{Verbatim}
+            
+    \subparagraph{From all above scores preparing data
+set}\label{from-all-above-scores-preparing-data-set}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{n}{f1}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{f2}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{9437519}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+             \PY{n}{f1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{jaccard\PYZus{}for\PYZus{}followers}\PY{p}{(}\PY{p}{(}\PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{p}{(}\PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{n}{f2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{jaccard\PYZus{}for\PYZus{}followees}\PY{p}{(}\PY{p}{(}\PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{p}{(}\PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{jaccard\PYZus{}for\PYZus{}followers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{f1}
+         \PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{jaccard\PYZus{}for\PYZus{}followees}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{f2}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{num\PYZus{}followers\PYZus{}s}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{num\PYZus{}followees\PYZus{}s}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{num\PYZus{}followers\PYZus{}d}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{num\PYZus{}followees\PYZus{}d}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{inter\PYZus{}followers}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{inter\PYZus{}followees}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{9437519}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+             \PY{n}{s1}\PY{o}{=}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{predecessors}\PY{p}{(}\PY{p}{(}\PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{n}{d1}\PY{o}{=}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{predecessors}\PY{p}{(}\PY{p}{(}\PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{s2}\PY{o}{=}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{successors}\PY{p}{(}\PY{p}{(}\PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{n}{d2}\PY{o}{=}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{successors}\PY{p}{(}\PY{p}{(}\PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{num\PYZus{}followers\PYZus{}s}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{s1}\PY{p}{)}\PY{p}{)}
+             \PY{n}{num\PYZus{}followees\PYZus{}s}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{s2}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{num\PYZus{}followers\PYZus{}d}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{d1}\PY{p}{)}\PY{p}{)}
+             \PY{n}{num\PYZus{}followees\PYZus{}d}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{d2}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{inter\PYZus{}followers}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{s1}\PY{o}{.}\PY{n}{intersection}\PY{p}{(}\PY{n}{d1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n}{inter\PYZus{}followees}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{s2}\PY{o}{.}\PY{n}{intersection}\PY{p}{(}\PY{n}{d2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}followers\PYZus{}s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{num\PYZus{}followers\PYZus{}s}
+         \PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}followees\PYZus{}s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{num\PYZus{}followees\PYZus{}s}
+         \PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}followers\PYZus{}d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{num\PYZus{}followers\PYZus{}d}
+         \PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}followees\PYZus{}d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{num\PYZus{}followees\PYZus{}d}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inter\PYZus{}followers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{inter\PYZus{}followers}
+         \PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inter\PYZus{}followees}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{inter\PYZus{}followees}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{n}{final}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}74}]:}    Source  Destination  jaccard\_for\_followers  jaccard\_for\_followees  \textbackslash{}
+         0       1       690569               0.066667               0.090909   
+         1       1       315892               0.033333               0.029412   
+         2       1       189226               0.200000               0.166667   
+         3       2       834328               0.000000               0.000000   
+         4       2      1615927               0.025641               0.032258   
+         
+            num\_followers\_s  num\_followees\_s  num\_followers\_d  num\_followees\_d  \textbackslash{}
+         0                3                3               29               21   
+         1                3                3               28               32   
+         2                3                3                3                4   
+         3                4                6               71               62   
+         4                4                6               36               26   
+         
+            inter\_followers  inter\_followees  
+         0                2                2  
+         1                1                1  
+         2                1                1  
+         3                0                0  
+         4                1                1  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{n}{adar}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{9437519}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+             \PY{n}{adar}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{calc\PYZus{}adar\PYZus{}in}\PY{p}{(}\PY{p}{(}\PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{p}{(}\PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{n}{back}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{9437519}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+             \PY{n}{back}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{follows\PYZus{}back}\PY{p}{(}\PY{p}{(}\PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{p}{(}\PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{same\PYZus{}comp}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{9437519}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+            \PY{n}{same\PYZus{}comp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{belongs\PYZus{}to\PYZus{}same\PYZus{}wcc}\PY{p}{(}\PY{p}{(}\PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{p}{(}\PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{path}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{9437519}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+            \PY{n}{path}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{compute\PYZus{}shortest\PYZus{}path\PYZus{}length}\PY{p}{(}\PY{p}{(}\PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{p}{(}\PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{pr\PYZus{}s}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+        \PY{n}{pr\PYZus{}d}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{9437519}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+            \PY{n}{pr\PYZus{}s}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pr}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{p}{(}\PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{pr\PYZus{}d}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pr}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{p}{(}\PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{pr\PYZus{}s}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+        \PY{n}{pr\PYZus{}d}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{9437519}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+            \PY{n}{pr\PYZus{}s}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pr}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{p}{(}\PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{pr\PYZus{}d}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pr}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{p}{(}\PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}117}]:} \PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adar\PYZus{}index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{adar}
+          \PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{follows\PYZus{}back}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{back}
+          \PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{shortest\PYZus{}path}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{path}
+          \PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{page\PYZus{}rank\PYZus{}s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{n}{pr\PYZus{}s}
+          \PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{page\PYZus{}rank\PYZus{}d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{n}{pr\PYZus{}d}
+          \PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same\PYZus{}comp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{same\PYZus{}comp}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{katz\PYZus{}s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{final}\PY{o}{.}\PY{n}{Source}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{katz}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{)}
+         \PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{katz\PYZus{}d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{final}\PY{o}{.}\PY{n}{Destination}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{katz}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hubs\PYZus{}s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{final}\PY{o}{.}\PY{n}{Source}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{hits}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{)}
+         \PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hubs\PYZus{}d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{final}\PY{o}{.}\PY{n}{Destination}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{hits}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{)}
+         \PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{authorities\PYZus{}s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{final}\PY{o}{.}\PY{n}{Source}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{hits}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{)}
+         \PY{n}{final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{authorities\PYZus{}d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{final}\PY{o}{.}\PY{n}{Destination}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{hits}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k+kn}{from} \PY{n+nn}{pandas} \PY{k}{import} \PY{n}{HDFStore}\PY{p}{,}\PY{n}{DataFrame}
+         \PY{n}{hdf} \PY{o}{=} \PY{n}{HDFStore}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{storage\PYZus{}temp.h5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{hdf}\PY{o}{.}\PY{n}{put}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{df}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{final}\PY{p}{,} \PY{n+nb}{format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{table}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data\PYZus{}columns}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k+kn}{from} \PY{n+nn}{pandas} \PY{k}{import} \PY{n}{read\PYZus{}hdf}
+         \PY{n}{hdf} \PY{o}{=} \PY{n}{read\PYZus{}hdf}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{storage\PYZus{}temp.h5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{df}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{mode}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{hdf}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}    Source  Destination  jaccard\_for\_followers  jaccard\_for\_followees  \textbackslash{}
+         0       1       690569               0.066667               0.090909   
+         1       1       315892               0.033333               0.029412   
+         2       1       189226               0.200000               0.166667   
+         3       2       834328               0.000000               0.000000   
+         4       2      1615927               0.025641               0.032258   
+         
+            num\_followers\_s  num\_followees\_s  num\_followers\_d  num\_followees\_d  \textbackslash{}
+         0                3                3               29               21   
+         1                3                3               28               32   
+         2                3                3                3                4   
+         3                4                6               71               62   
+         4                4                6               36               26   
+         
+            inter\_followers  inter\_followees      {\ldots}        shortest\_path  \textbackslash{}
+         0                2                2      {\ldots}                    2   
+         1                1                1      {\ldots}                    2   
+         2                1                1      {\ldots}                    2   
+         3                0                0      {\ldots}                    4   
+         4                1                1      {\ldots}                    2   
+         
+             page\_rank\_s   page\_rank\_d  same\_comp    katz\_s    katz\_d        hubs\_s  \textbackslash{}
+         0  2.979445e-07  3.726469e-06          1  0.000722  0.000819  8.549204e-18   
+         1  2.979445e-07  2.420463e-06          1  0.000722  0.000815  8.549204e-18   
+         2  2.979445e-07  5.499399e-07          1  0.000722  0.000721  8.549204e-18   
+         3  2.305481e-07  3.609568e-06          1  0.000727  0.000987  5.733354e-17   
+         4  2.305481e-07  3.146838e-06          1  0.000727  0.000849  5.733354e-17   
+         
+                  hubs\_d  authorities\_s  authorities\_d  
+         0  1.690629e-16   3.812313e-18   3.942264e-16  
+         1  3.756260e-16   3.812313e-18   1.088839e-15  
+         2  1.311680e-16   3.812313e-18   1.031571e-18  
+         3  2.201178e-15   1.470085e-17   7.312979e-15  
+         4  2.568950e-16   1.470085e-17   1.377441e-15  
+         
+         [5 rows x 22 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k}{del} \PY{n}{Adj}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{svd\PYZus{}u\PYZus{}s}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{svd\PYZus{}u\PYZus{}d}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{svd\PYZus{}v\PYZus{}s}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{svd\PYZus{}v\PYZus{}d}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{9437519}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+             \PY{n}{svd\PYZus{}u\PYZus{}s}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{U}\PY{p}{[}\PY{p}{(}\PY{n}{hdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{n}{svd\PYZus{}u\PYZus{}d}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{U}\PY{p}{[}\PY{p}{(}\PY{n}{hdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{n}{svd\PYZus{}v\PYZus{}s}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{V}\PY{o}{.}\PY{n}{T}\PY{p}{[}\PY{p}{(}\PY{n}{hdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{n}{svd\PYZus{}v\PYZus{}d}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{V}\PY{o}{.}\PY{n}{T}\PY{p}{[}\PY{p}{(}\PY{n}{hdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}svd\PYZus{}frame}\PY{p}{(}\PY{n}{svd\PYZus{}para}\PY{p}{,}\PY{n}{s\PYZus{}para}\PY{p}{)}\PY{p}{:}
+             \PY{n}{hdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{svd\PYZus{}para}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{s\PYZus{}para}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df\PYZus{}s\PYZus{}u}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{k}{del} \PY{n}{df\PYZus{}s\PYZus{}u}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{hdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{svd\PYZus{}para}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{s\PYZus{}para}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df\PYZus{}s\PYZus{}u}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{k}{del} \PY{n}{df\PYZus{}s\PYZus{}u}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{hdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{svd\PYZus{}para}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{s\PYZus{}para}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df\PYZus{}s\PYZus{}u}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{k}{del} \PY{n}{df\PYZus{}s\PYZus{}u}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{hdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{svd\PYZus{}para}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{s\PYZus{}para}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df\PYZus{}s\PYZus{}u}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{k}{del} \PY{n}{df\PYZus{}s\PYZus{}u}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{hdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{svd\PYZus{}para}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{s\PYZus{}para}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df\PYZus{}s\PYZus{}u}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{k}{del} \PY{n}{df\PYZus{}s\PYZus{}u}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{hdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{svd\PYZus{}para}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{s\PYZus{}para}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df\PYZus{}s\PYZus{}u}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{k}{del} \PY{n}{df\PYZus{}s\PYZus{}u}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{df\PYZus{}s\PYZus{}u} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                               \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{svd\PYZus{}u\PYZus{}s}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{get\PYZus{}svd\PYZus{}frame}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{u}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{del} \PY{n}{svd\PYZus{}u\PYZus{}s}
+         \PY{k}{del} \PY{n}{df\PYZus{}s\PYZus{}u}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{df\PYZus{}s\PYZus{}u} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{svd\PYZus{}v\PYZus{}s}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{get\PYZus{}svd\PYZus{}frame}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{v}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{del} \PY{n}{svd\PYZus{}v\PYZus{}s}
+         \PY{k}{del} \PY{n}{df\PYZus{}s\PYZus{}u}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{df\PYZus{}s\PYZus{}u} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{svd\PYZus{}u\PYZus{}d}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{get\PYZus{}svd\PYZus{}frame}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{u}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{del} \PY{n}{svd\PYZus{}u\PYZus{}d}
+         \PY{k}{del} \PY{n}{df\PYZus{}s\PYZus{}u}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{df\PYZus{}s\PYZus{}u} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}u\PYZus{}s\PYZus{}6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{svd\PYZus{}v\PYZus{}d}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{get\PYZus{}svd\PYZus{}frame}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{v}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{del} \PY{n}{svd\PYZus{}v\PYZus{}d}
+         \PY{k}{del} \PY{n}{df\PYZus{}s\PYZus{}u}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{hdf}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:}    Source  Destination  jaccard\_for\_followers  jaccard\_for\_followees  \textbackslash{}
+         0       1       690569               0.066667               0.090909   
+         1       1       315892               0.033333               0.029412   
+         2       1       189226               0.200000               0.166667   
+         3       2       834328               0.000000               0.000000   
+         4       2      1615927               0.025641               0.032258   
+         
+            num\_followers\_s  num\_followees\_s  num\_followers\_d  num\_followees\_d  \textbackslash{}
+         0                3                3               29               21   
+         1                3                3               28               32   
+         2                3                3                3                4   
+         3                4                6               71               62   
+         4                4                6               36               26   
+         
+            inter\_followers  inter\_followees      {\ldots}          svd\_u\_d\_3     svd\_u\_d\_4  \textbackslash{}
+         0                2                2      {\ldots}       7.574563e-11  2.203385e-13   
+         1                1                1      {\ldots}       7.789290e-11  2.007310e-12   
+         2                1                1      {\ldots}       6.202886e-13  3.541983e-15   
+         3                0                0      {\ldots}       3.660370e-09  1.281799e-11   
+         4                1                1      {\ldots}       3.016396e-11  7.628502e-12   
+         
+               svd\_u\_d\_5     svd\_u\_d\_6     svd\_v\_d\_1     svd\_v\_d\_2     svd\_v\_d\_3  \textbackslash{}
+         0 -1.137448e-12 -3.117460e-15 -1.192614e-12  1.769739e-11  7.610923e-11   
+         1 -1.052990e-11 -6.926059e-15 -6.693973e-13  1.119150e-10  4.106460e-11   
+         2 -4.075645e-14 -2.418571e-15 -5.133729e-14  1.009115e-10  5.980483e-13   
+         3 -3.699026e-11 -4.058605e-14 -8.897765e-12  1.398199e-09  1.295040e-09   
+         4 -8.342092e-12 -4.736594e-15 -2.254699e-12  4.046084e-11  1.085944e-10   
+         
+               svd\_v\_d\_4     svd\_v\_d\_5     svd\_v\_d\_6  
+         0  2.991776e-13 -2.859740e-12 -7.345663e-15  
+         1  2.169967e-12 -1.106141e-12 -2.028846e-14  
+         2  2.168489e-15 -7.963057e-15 -1.922222e-17  
+         3  7.927656e-12 -9.188607e-11 -1.362635e-13  
+         4  7.773768e-13 -3.284524e-12 -2.566603e-14  
+         
+         [5 rows x 46 columns]
+\end{Verbatim}
+            
+    Storing data in HDF format
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{k+kn}{from} \PY{n+nn}{pandas} \PY{k}{import} \PY{n}{HDFStore}\PY{p}{,}\PY{n}{DataFrame}
+         \PY{n}{hdf1} \PY{o}{=} \PY{n}{HDFStore}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{storage\PYZus{}final.h5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{hdf1}\PY{o}{.}\PY{n}{put}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{df1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{hdf}\PY{p}{,} \PY{n+nb}{format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{table}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data\PYZus{}columns}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{from} \PY{n+nn}{pandas} \PY{k}{import} \PY{n}{read\PYZus{}hdf}
+        \PY{n}{hdf} \PY{o}{=} \PY{n}{read\PYZus{}hdf}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{storage\PYZus{}final.h5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{df1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{mode}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{hdf}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} Index(['Source', 'Destination', 'jaccard\_for\_followers',
+               'jaccard\_for\_followees', 'num\_followers\_s', 'num\_followees\_s',
+               'num\_followers\_d', 'num\_followees\_d', 'inter\_followers',
+               'inter\_followees', 'adar\_index', 'follows\_back', 'shortest\_path',
+               'page\_rank\_s', 'page\_rank\_d', 'same\_comp', 'katz\_s', 'katz\_d', 'hubs\_s',
+               'hubs\_d', 'authorities\_s', 'authorities\_d', 'svd\_u\_s\_1', 'svd\_u\_s\_2',
+               'svd\_u\_s\_3', 'svd\_u\_s\_4', 'svd\_u\_s\_5', 'svd\_u\_s\_6', 'svd\_v\_s\_1',
+               'svd\_v\_s\_2', 'svd\_v\_s\_3', 'svd\_v\_s\_4', 'svd\_v\_s\_5', 'svd\_v\_s\_6',
+               'svd\_u\_d\_1', 'svd\_u\_d\_2', 'svd\_u\_d\_3', 'svd\_u\_d\_4', 'svd\_u\_d\_5',
+               'svd\_u\_d\_6', 'svd\_v\_d\_1', 'svd\_v\_d\_2', 'svd\_v\_d\_3', 'svd\_v\_d\_4',
+               'svd\_v\_d\_5', 'svd\_v\_d\_6'],
+              dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{listofones}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} 18875038
+\end{Verbatim}
+            
+    \subparagraph{Train Test split}\label{train-test-split}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{hdf}\PY{p}{,}\PY{n}{listofones}\PY{p}{,}\PY{n}{stratify}\PY{o}{=}\PY{n}{listofones}\PY{p}{,}\PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.10}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{13}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train Shape}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Shape}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train Shape (16987534, 46)
+Test Shape (1887504, 46)
+
+    \end{Verbatim}
+
+    \subsubsection{Machine learning Models}\label{machine-learning-models}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{estimators} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{250}\PY{p}{,}\PY{l+m+mi}{450}\PY{p}{]}
+        \PY{n}{train\PYZus{}scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{test\PYZus{}scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{estimators}\PY{p}{:}
+            \PY{n}{clf} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{bootstrap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gini}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{max\PYZus{}leaf\PYZus{}nodes}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}
+                    \PY{n}{min\PYZus{}impurity\PYZus{}decrease}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{min\PYZus{}impurity\PYZus{}split}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}
+                    \PY{n}{min\PYZus{}samples\PYZus{}leaf}\PY{o}{=}\PY{l+m+mi}{52}\PY{p}{,} \PY{n}{min\PYZus{}samples\PYZus{}split}\PY{o}{=}\PY{l+m+mi}{120}\PY{p}{,}
+                    \PY{n}{min\PYZus{}weight\PYZus{}fraction\PYZus{}leaf}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{n}{i}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{,}\PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+            \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+            \PY{n}{train\PYZus{}sc} \PY{o}{=} \PY{n}{f1\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{)}
+            \PY{n}{test\PYZus{}sc} \PY{o}{=} \PY{n}{f1\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}
+            \PY{n}{test\PYZus{}scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{test\PYZus{}sc}\PY{p}{)}
+            \PY{n}{train\PYZus{}scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}sc}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Estimators = }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{i}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{train\PYZus{}sc}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{test\PYZus{}sc}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{estimators}\PY{p}{,}\PY{n}{train\PYZus{}scores}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{estimators}\PY{p}{,}\PY{n}{test\PYZus{}scores}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Estimators}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Estimators vs score at depth of 5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Estimators =  10 Train Score 0.9355605557726946 test Score 0.9358778299053476
+Estimators =  50 Train Score 0.9324250741464069 test Score 0.9327588195256303
+Estimators =  100 Train Score 0.9360400602184306 test Score 0.9363720826582735
+Estimators =  250 Train Score 0.9326616802528905 test Score 0.9330067584941765
+Estimators =  450 Train Score 0.9356461169461268 test Score 0.9360057114029872
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} Text(0.5,1,'Estimators vs score at depth of 5')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_138_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{depths} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{,}\PY{l+m+mi}{13}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{]}
+         \PY{n}{train\PYZus{}scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{test\PYZus{}scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{depths}\PY{p}{:}
+             \PY{n}{clf} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{bootstrap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gini}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{n}{i}\PY{p}{,} \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{max\PYZus{}leaf\PYZus{}nodes}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}
+                     \PY{n}{min\PYZus{}impurity\PYZus{}decrease}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{min\PYZus{}impurity\PYZus{}split}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}
+                     \PY{n}{min\PYZus{}samples\PYZus{}leaf}\PY{o}{=}\PY{l+m+mi}{52}\PY{p}{,} \PY{n}{min\PYZus{}samples\PYZus{}split}\PY{o}{=}\PY{l+m+mi}{120}\PY{p}{,}
+                     \PY{n}{min\PYZus{}weight\PYZus{}fraction\PYZus{}leaf}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{110}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{,}\PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+             \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+             \PY{n}{train\PYZus{}sc} \PY{o}{=} \PY{n}{f1\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{)}
+             \PY{n}{test\PYZus{}sc} \PY{o}{=} \PY{n}{f1\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}
+             \PY{n}{test\PYZus{}scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{test\PYZus{}sc}\PY{p}{)}
+             \PY{n}{train\PYZus{}scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}sc}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{depth = }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{i}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{train\PYZus{}sc}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{test\PYZus{}sc}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{depths}\PY{p}{,}\PY{n}{train\PYZus{}scores}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{depths}\PY{p}{,}\PY{n}{test\PYZus{}scores}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Depth vs score at depth of 5 at estimators = 110}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Depth =  3 Train Score 0.9135633952211895 test Score 0.9138565572544209
+Depth =  5 Train Score 0.9357882996440469 test Score 0.9361266342454293
+Depth =  7 Train Score 0.9435873122599637 test Score 0.943848372935684
+Depth =  9 Train Score 0.9468496272790211 test Score 0.94706832113918
+Depth =  11 Train Score 0.954207176045251 test Score 0.9543986099916757
+Depth =  13 Train Score 0.9576369816149864 test Score 0.9576574235211681
+Depth =  15 Train Score 0.9643837384370765 test Score 0.9643493093625056
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} Text(0.5,1,'Depth vs score at depth of 5 at estimators = 110')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_139_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{depths} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{17}\PY{p}{,}\PY{l+m+mi}{19}\PY{p}{,}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{]}
+         \PY{n}{train\PYZus{}scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{test\PYZus{}scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{depths}\PY{p}{:}
+             \PY{n}{clf} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{bootstrap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gini}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{n}{i}\PY{p}{,} \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{max\PYZus{}leaf\PYZus{}nodes}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}
+                     \PY{n}{min\PYZus{}impurity\PYZus{}decrease}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{min\PYZus{}impurity\PYZus{}split}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}
+                     \PY{n}{min\PYZus{}samples\PYZus{}leaf}\PY{o}{=}\PY{l+m+mi}{52}\PY{p}{,} \PY{n}{min\PYZus{}samples\PYZus{}split}\PY{o}{=}\PY{l+m+mi}{120}\PY{p}{,}
+                     \PY{n}{min\PYZus{}weight\PYZus{}fraction\PYZus{}leaf}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{110}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{,}\PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+             \PY{n}{train\PYZus{}sc} \PY{o}{=} \PY{n}{f1\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{)}
+             \PY{n}{test\PYZus{}sc} \PY{o}{=} \PY{n}{f1\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}
+             \PY{n}{test\PYZus{}scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{test\PYZus{}sc}\PY{p}{)}
+             \PY{n}{train\PYZus{}scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}sc}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Depth = }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{i}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{train\PYZus{}sc}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{test\PYZus{}sc}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{depths}\PY{p}{,}\PY{n}{train\PYZus{}scores}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{depths}\PY{p}{,}\PY{n}{test\PYZus{}scores}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Estimators vs score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Depth =  15 Train Score 0.9643837384370765 test Score 0.9643493093625056
+Depth =  17 Train Score 0.9684922617199279 test Score 0.9684519418634415
+Depth =  19 Train Score 0.969924351511325 test Score 0.9699622974598553
+Depth =  25 Train Score 0.972800920649682 test Score 0.9727983990794277
+Depth =  30 Train Score 0.973176868239819 test Score 0.973154358820791
+Depth =  50 Train Score 0.9732532862836132 test Score 0.9731564649237942
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} Text(0.5,1,'Estimators vs score')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_140_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         \PY{n}{depths} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{60}\PY{p}{,}\PY{l+m+mi}{75}\PY{p}{,}\PY{l+m+mi}{95}\PY{p}{,}\PY{l+m+mi}{120}\PY{p}{,}\PY{l+m+mi}{150}\PY{p}{,}\PY{l+m+mi}{190}\PY{p}{]}
+         \PY{n}{train\PYZus{}scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{test\PYZus{}scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{depths}\PY{p}{:}
+             \PY{n}{clf} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{bootstrap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gini}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{n}{i}\PY{p}{,} \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{max\PYZus{}leaf\PYZus{}nodes}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}
+                     \PY{n}{min\PYZus{}impurity\PYZus{}decrease}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{min\PYZus{}impurity\PYZus{}split}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}
+                     \PY{n}{min\PYZus{}samples\PYZus{}leaf}\PY{o}{=}\PY{l+m+mi}{52}\PY{p}{,} \PY{n}{min\PYZus{}samples\PYZus{}split}\PY{o}{=}\PY{l+m+mi}{120}\PY{p}{,}
+                     \PY{n}{min\PYZus{}weight\PYZus{}fraction\PYZus{}leaf}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{110}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{,}\PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+             \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+             \PY{n}{train\PYZus{}sc} \PY{o}{=} \PY{n}{f1\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{)}
+             \PY{n}{test\PYZus{}sc} \PY{o}{=} \PY{n}{f1\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}
+             \PY{n}{test\PYZus{}scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{test\PYZus{}sc}\PY{p}{)}
+             \PY{n}{train\PYZus{}scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}sc}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Depth = }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{i}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{train\PYZus{}sc}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{test\PYZus{}sc}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{depths}\PY{p}{,}\PY{n}{train\PYZus{}scores}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{depths}\PY{p}{,}\PY{n}{test\PYZus{}scores}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mf}{0.9731}\PY{p}{,}\PY{l+m+mf}{0.9733}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Depth vs score }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Depth =  30 Train Score 0.973176868239819 test Score 0.973154358820791
+Depth =  50 Train Score 0.9732532862836132 test Score 0.9731564649237942
+Depth =  60 Train Score 0.973267182073576 test Score 0.9731879925133946
+Depth =  75 Train Score 0.973267182073576 test Score 0.9731879925133946
+Depth =  95 Train Score 0.973267182073576 test Score 0.9731879925133946
+Depth =  120 Train Score 0.973267182073576 test Score 0.9731879925133946
+Depth =  150 Train Score 0.973267182073576 test Score 0.9731879925133946
+Depth =  190 Train Score 0.973267182073576 test Score 0.9731879925133946
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} Text(0.5,1,'Depth vs score ')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_141_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{train\PYZus{}scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{test\PYZus{}scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{ParameterGrid}
+        \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}sample\PYZus{}leafs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{70}\PY{p}{,}\PY{l+m+mi}{90}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}samples\PYZus{}splits}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{60}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{125}\PY{p}{,}\PY{l+m+mi}{150}\PY{p}{,}\PY{l+m+mi}{180}\PY{p}{]}\PY{p}{\PYZcb{}}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{ParameterGrid}\PY{p}{(}\PY{n}{param\PYZus{}grid}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{clf} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{bootstrap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gini}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{60}\PY{p}{,} \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{max\PYZus{}leaf\PYZus{}nodes}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}
+                    \PY{n}{min\PYZus{}impurity\PYZus{}decrease}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{min\PYZus{}impurity\PYZus{}split}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}
+                    \PY{n}{min\PYZus{}samples\PYZus{}leaf}\PY{o}{=}\PY{n}{i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}sample\PYZus{}leafs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{min\PYZus{}samples\PYZus{}split}\PY{o}{=}\PY{n}{i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}samples\PYZus{}splits}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                    \PY{n}{min\PYZus{}weight\PYZus{}fraction\PYZus{}leaf}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{110}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{,}\PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+            \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+            \PY{n}{train\PYZus{}sc} \PY{o}{=} \PY{n}{f1\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{)}
+            \PY{n}{test\PYZus{}sc} \PY{o}{=} \PY{n}{f1\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}
+            \PY{n}{test\PYZus{}scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{test\PYZus{}sc}\PY{p}{)}
+            \PY{n}{train\PYZus{}scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}sc}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}samples\PYZus{}leaf=}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}sample\PYZus{}leafs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}samples\PYZus{}split=}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}samples\PYZus{}splits}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{train\PYZus{}sc}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{test\PYZus{}sc}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+min\_samples\_leaf= 30 min\_samples\_split= 60 Train Score 0.9738156889595279 test Score 0.97370504280618
+min\_samples\_leaf= 30 min\_samples\_split= 100 Train Score 0.9737577189170793 test Score 0.973658141861029
+min\_samples\_leaf= 30 min\_samples\_split= 125 Train Score 0.9737928509172361 test Score 0.9737455680591954
+min\_samples\_leaf= 30 min\_samples\_split= 150 Train Score 0.9737628940150641 test Score 0.9737056919525169
+min\_samples\_leaf= 30 min\_samples\_split= 180 Train Score 0.973706280130253 test Score 0.9736490120988784
+min\_samples\_leaf= 50 min\_samples\_split= 60 Train Score 0.9733467047234561 test Score 0.9733382151892095
+min\_samples\_leaf= 50 min\_samples\_split= 100 Train Score 0.9733467047234561 test Score 0.9733382151892095
+min\_samples\_leaf= 50 min\_samples\_split= 125 Train Score 0.9732031760503617 test Score 0.9731303287498254
+min\_samples\_leaf= 50 min\_samples\_split= 150 Train Score 0.9733574333569979 test Score 0.973313655680691
+min\_samples\_leaf= 50 min\_samples\_split= 180 Train Score 0.9732949648503695 test Score 0.9732759363537932
+min\_samples\_leaf= 70 min\_samples\_split= 60 Train Score 0.9729749200699397 test Score 0.9729369754539925
+min\_samples\_leaf= 70 min\_samples\_split= 100 Train Score 0.9729749200699397 test Score 0.9729369754539925
+min\_samples\_leaf= 70 min\_samples\_split= 125 Train Score 0.9729749200699397 test Score 0.9729369754539925
+min\_samples\_leaf= 70 min\_samples\_split= 150 Train Score 0.9729295238743813 test Score 0.9728919889742472
+min\_samples\_leaf= 70 min\_samples\_split= 180 Train Score 0.9729744214100003 test Score 0.9729366528638668
+min\_samples\_leaf= 90 min\_samples\_split= 60 Train Score 0.9727584293555744 test Score 0.9727325141513579
+min\_samples\_leaf= 90 min\_samples\_split= 100 Train Score 0.9727584293555744 test Score 0.9727325141513579
+min\_samples\_leaf= 90 min\_samples\_split= 125 Train Score 0.9727584293555744 test Score 0.9727325141513579
+min\_samples\_leaf= 90 min\_samples\_split= 150 Train Score 0.9727584293555744 test Score 0.9727325141513579
+min\_samples\_leaf= 90 min\_samples\_split= 180 Train Score 0.9727584293555744 test Score 0.9727325141513579
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{f1\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{f1\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{RandomizedSearchCV}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{randint} \PY{k}{as} \PY{n}{sp\PYZus{}randint}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{uniform}
+        \PY{n}{param\PYZus{}dist} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{n\PYZus{}estimators}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{sp\PYZus{}randint}\PY{p}{(}\PY{l+m+mi}{105}\PY{p}{,}\PY{l+m+mi}{125}\PY{p}{)}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max\PYZus{}depth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{sp\PYZus{}randint}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min\PYZus{}samples\PYZus{}split}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{sp\PYZus{}randint}\PY{p}{(}\PY{l+m+mi}{120}\PY{p}{,}\PY{l+m+mi}{190}\PY{p}{)}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min\PYZus{}samples\PYZus{}leaf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{sp\PYZus{}randint}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{\PYZcb{}}
+        \PY{n}{clf} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{,}\PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{rf\PYZus{}random} \PY{o}{=} \PY{n}{RandomizedSearchCV}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{param\PYZus{}distributions}\PY{o}{=}\PY{n}{param\PYZus{}dist}\PY{p}{,}
+                                           \PY{n}{n\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{)}
+        \PY{n}{rf\PYZus{}random}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+        
+        \PY{k+kn}{import} \PY{n+nn}{pickle}
+        \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{rf\PYZus{}random}\PY{p}{,}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rf\PYZus{}random\PYZus{}2.p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{rf\PYZus{}random}\PY{o}{.}\PY{n}{grid\PYZus{}scores\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} [mean: 0.97308, std: 0.00012, params: \{'max\_depth': 54, 'min\_samples\_leaf': 51, 'min\_samples\_split': 135, 'n\_estimators': 117\},
+          mean: 0.97342, std: 0.00017, params: \{'max\_depth': 68, 'min\_samples\_leaf': 33, 'min\_samples\_split': 148, 'n\_estimators': 109\},
+          mean: 0.97351, std: 0.00018, params: \{'max\_depth': 70, 'min\_samples\_leaf': 30, 'min\_samples\_split': 121, 'n\_estimators': 112\},
+          mean: 0.97304, std: 0.00019, params: \{'max\_depth': 53, 'min\_samples\_leaf': 49, 'min\_samples\_split': 175, 'n\_estimators': 108\},
+          mean: 0.97356, std: 0.00018, params: \{'max\_depth': 70, 'min\_samples\_leaf': 28, 'min\_samples\_split': 121, 'n\_estimators': 121\}]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean test scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{rf\PYZus{}random}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean train scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{rf\PYZus{}random}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}train\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+mean test scores [0.97307626 0.97342125 0.97350956 0.97303721 0.97355554]
+mean train scores [0.9732093  0.9735835  0.97369909 0.97316352 0.97375194]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{clf\PYZus{}rf} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{bootstrap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gini}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{70}\PY{p}{,} \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{max\PYZus{}leaf\PYZus{}nodes}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}
+                    \PY{n}{min\PYZus{}impurity\PYZus{}decrease}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{min\PYZus{}impurity\PYZus{}split}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}
+                    \PY{n}{min\PYZus{}samples\PYZus{}leaf}\PY{o}{=}\PY{l+m+mi}{28}\PY{p}{,} \PY{n}{min\PYZus{}samples\PYZus{}split}\PY{o}{=}\PY{l+m+mi}{121}\PY{p}{,}
+                    \PY{n}{min\PYZus{}weight\PYZus{}fraction\PYZus{}leaf}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{121}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{,}\PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{clf\PYZus{}rf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+        \PY{k+kn}{import} \PY{n+nn}{pickle}
+        \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{clf\PYZus{}rf}\PY{p}{,}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf\PYZus{}rf.p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+         \PY{k}{def} \PY{n+nf}{plot\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{test\PYZus{}y}\PY{p}{,} \PY{n}{predict\PYZus{}y}\PY{p}{)}\PY{p}{:}
+             \PY{n}{C} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{test\PYZus{}y}\PY{p}{,} \PY{n}{predict\PYZus{}y}\PY{p}{)}
+             
+             \PY{n}{A} \PY{o}{=}\PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{n}{C}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{C}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+             
+             \PY{n}{B} \PY{o}{=}\PY{p}{(}\PY{n}{C}\PY{o}{/}\PY{n}{C}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{c+c1}{\PYZsh{} representing A in heatmap format}
+             \PY{n}{cmap}\PY{o}{=}\PY{n}{sns}\PY{o}{.}\PY{n}{light\PYZus{}palette}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{C}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cmap}\PY{p}{,} \PY{n}{fmt}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.3f}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{xticklabels}\PY{o}{=}\PY{n}{labels}\PY{p}{,} \PY{n}{yticklabels}\PY{o}{=}\PY{n}{labels}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted Class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Confusion matrix}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{B}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cmap}\PY{p}{,} \PY{n}{fmt}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.3f}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{xticklabels}\PY{o}{=}\PY{n}{labels}\PY{p}{,} \PY{n}{yticklabels}\PY{o}{=}\PY{n}{labels}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted Class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precision matrix}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} representing B in heatmap format}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cmap}\PY{p}{,} \PY{n}{fmt}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.3f}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{xticklabels}\PY{o}{=}\PY{n}{labels}\PY{p}{,} \PY{n}{yticklabels}\PY{o}{=}\PY{n}{labels}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted Class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Recall matrix}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train confusion\PYZus{}matrix}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plot\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{clf\PYZus{}rf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test confusion\PYZus{}matrix}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plot\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{clf\PYZus{}rf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train confusion\_matrix
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_148_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Test confusion\_matrix
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_148_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{roc\PYZus{}curve}\PY{p}{,} \PY{n}{auc}
+         \PY{n}{fpr}\PY{p}{,}\PY{n}{tpr}\PY{p}{,}\PY{n}{ths} \PY{o}{=} \PY{n}{roc\PYZus{}curve}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{clf\PYZus{}rf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}
+         \PY{n}{auc\PYZus{}sc} \PY{o}{=} \PY{n}{auc}\PY{p}{(}\PY{n}{fpr}\PY{p}{,} \PY{n}{tpr}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{fpr}\PY{p}{,} \PY{n}{tpr}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{navy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ROC curve (area = }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{auc\PYZus{}sc}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{False Positive Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True Positive Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Receiver operating characteristic with test data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_149_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{features} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{columns}
+         \PY{n}{importances} \PY{o}{=} \PY{n}{clf\PYZus{}rf}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}}
+         \PY{n}{indices} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{n}{importances}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{15}\PY{p}{:}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Feature Importances}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{indices}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{importances}\PY{p}{[}\PY{n}{indices}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{indices}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{p}{[}\PY{n}{features}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{indices}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Relative Importance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_150_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Some other features:}\label{some-other-features}
+
+    \paragraph{Weight Features}\label{weight-features}
+
+    In order to determine the similarity of nodes, an edge weight value was
+calculated between nodes. Edge weight decreases as the neighbor count
+goes up. Intuitively, consider one million people following a celebrity
+on a social network. Chances are most of them never met each other or
+the celebrity. On the other hand, if a user has 30 contacts in his/her
+social network, the chances are higher that many of them know each
+other. credit - Quora
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{}weight for source and destination of each link}
+        \PY{n}{Weight\PYZus{}in} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{Weight\PYZus{}out} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{g}\PY{o}{.}\PY{n}{nodes}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{s1}\PY{o}{=}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{predecessors}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+            \PY{n}{w\PYZus{}in} \PY{o}{=} \PY{l+m+mf}{1.0}\PY{o}{/}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n+nb}{len}\PY{p}{(}\PY{n}{s1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n}{s2}\PY{o}{=}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{successors}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+            \PY{n}{w\PYZus{}out} \PY{o}{=} \PY{l+m+mf}{1.0}\PY{o}{/}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n+nb}{len}\PY{p}{(}\PY{n}{s2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n}{Weight\PYZus{}in}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{w\PYZus{}in}\PY{p}{)}\PY{p}{)}
+            \PY{n}{Weight\PYZus{}out}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{w\PYZus{}out}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}converting as dict to map DataFrame}
+         \PY{n}{Weight\PYZus{}in\PYZus{}dict} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{Weight\PYZus{}in}\PY{p}{)}
+         \PY{n}{Weight\PYZus{}out\PYZus{}dict} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{Weight\PYZus{}out}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{}saving to disk}
+         \PY{k+kn}{import} \PY{n+nn}{pickle}
+         \PY{n}{Weight\PYZus{}in\PYZus{}dict} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Weight\PYZus{}in\PYZus{}dict.p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{Weight\PYZus{}out\PYZus{}dict} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Weight\PYZus{}out\PYZus{}dict.p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{}mapping to pandas}
+         \PY{n}{hdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Weight\PYZus{}in}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{hdf}\PY{o}{.}\PY{n}{Destination}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{Weight\PYZus{}in\PYZus{}dict}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{)}
+         \PY{n}{hdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Weight\PYZus{}out}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{hdf}\PY{o}{.}\PY{n}{Source}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{Weight\PYZus{}out\PYZus{}dict}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{}some features engineerings on tose in and out weigts}
+         \PY{n}{hdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Weight\PYZus{}f1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{hdf}\PY{o}{.}\PY{n}{Weight\PYZus{}in} \PY{o}{+} \PY{n}{hdf}\PY{o}{.}\PY{n}{Weight\PYZus{}out}
+         \PY{n}{hdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Weight\PYZus{}f2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{hdf}\PY{o}{.}\PY{n}{Weight\PYZus{}in} \PY{o}{*} \PY{n}{hdf}\PY{o}{.}\PY{n}{Weight\PYZus{}out}
+         \PY{n}{hdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Weight\PYZus{}f3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{hdf}\PY{o}{.}\PY{n}{Weight\PYZus{}in} \PY{o}{+} \PY{l+m+mi}{1}\PY{o}{*}\PY{n}{hdf}\PY{o}{.}\PY{n}{Weight\PYZus{}out}\PY{p}{)}
+         \PY{n}{hdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Weight\PYZus{}f4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{*}\PY{n}{hdf}\PY{o}{.}\PY{n}{Weight\PYZus{}in} \PY{o}{+} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{hdf}\PY{o}{.}\PY{n}{Weight\PYZus{}out}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{hdf}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} Index(['Source', 'Destination', 'jaccard\_for\_followers',
+                'jaccard\_for\_followees', 'num\_followers\_s', 'num\_followees\_s',
+                'num\_followers\_d', 'num\_followees\_d', 'inter\_followers',
+                'inter\_followees', 'adar\_index', 'follows\_back', 'shortest\_path',
+                'page\_rank\_s', 'page\_rank\_d', 'same\_comp', 'katz\_s', 'katz\_d', 'hubs\_s',
+                'hubs\_d', 'authorities\_s', 'authorities\_d', 'svd\_u\_s\_1', 'svd\_u\_s\_2',
+                'svd\_u\_s\_3', 'svd\_u\_s\_4', 'svd\_u\_s\_5', 'svd\_u\_s\_6', 'svd\_v\_s\_1',
+                'svd\_v\_s\_2', 'svd\_v\_s\_3', 'svd\_v\_s\_4', 'svd\_v\_s\_5', 'svd\_v\_s\_6',
+                'svd\_u\_d\_1', 'svd\_u\_d\_2', 'svd\_u\_d\_3', 'svd\_u\_d\_4', 'svd\_u\_d\_5',
+                'svd\_u\_d\_6', 'svd\_v\_d\_1', 'svd\_v\_d\_2', 'svd\_v\_d\_3', 'svd\_v\_d\_4',
+                'svd\_v\_d\_5', 'svd\_v\_d\_6', 'Weight\_in', 'Weight\_out', 'Weight\_f1',
+                'Weight\_f2', 'Weight\_f3', 'Weight\_f4'],
+               dtype='object')
+\end{Verbatim}
+            
+    \paragraph{Some Other SVD Features:}\label{some-other-svd-features}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} svd decomposition}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{TruncatedSVD}
+        \PY{n}{svd} \PY{o}{=} \PY{n}{TruncatedSVD}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{n\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}
+        \PY{n}{svd\PYZus{}mat} \PY{o}{=} \PY{n}{svd}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{Adj}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{}nodes list sorted}
+        \PY{n}{nodes\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{nodes}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{nodes\PYZus{}list} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{nodes\PYZus{}list}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}node and index as key value pairs, i need it because getting index from list is O(n) order}
+        \PY{c+c1}{\PYZsh{} but from dict its O(1)}
+        \PY{n}{nodes\PYZus{}list\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{k}\PY{p}{:}\PY{n}{v} \PY{k}{for} \PY{n}{v}\PY{p}{,}\PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{nodes\PYZus{}list}\PY{p}{)}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} deleting because of sapce constraint}
+         \PY{k}{del} \PY{n}{Adj}
+         \PY{k}{del} \PY{n}{g}
+         \PY{k}{del} \PY{n}{nodes\PYZus{}list}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k+kn}{import} \PY{n+nn}{pickle}
+         \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{svd\PYZus{}mat}\PY{p}{,}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}map.p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{nodes\PYZus{}list\PYZus{}dict}\PY{p}{,}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nodes\PYZus{}list\PYZus{}dict.p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{import} \PY{n+nn}{pickle}
+        \PY{n}{svd\PYZus{}mat} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}map.p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{nodes\PYZus{}list\PYZus{}dict} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nodes\PYZus{}list\PYZus{}dict.p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} SVD dot product of source and destination vectores}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} SVD mean of source and destination vector}
+        \PY{k+kn}{from} \PY{n+nn}{tqdm} \PY{k}{import} \PY{n}{tqdm}
+        \PY{n}{svd\PYZus{}dot} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{svd\PYZus{}mean\PYZus{}dest} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{svd\PYZus{}mean\PYZus{}source} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{idx}\PY{p}{,}\PY{n}{temp\PYZus{}series} \PY{o+ow}{in} \PY{n}{tqdm}\PY{p}{(}\PY{n}{hdf}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{total}\PY{o}{=}\PY{n}{hdf}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+            \PY{n}{in\PYZus{}idx} \PY{o}{=} \PY{n}{nodes\PYZus{}list\PYZus{}dict}\PY{p}{[}\PY{n}{temp\PYZus{}series}\PY{o}{.}\PY{n}{Destination}\PY{p}{]}
+            \PY{n}{out\PYZus{}idx} \PY{o}{=} \PY{n}{nodes\PYZus{}list\PYZus{}dict}\PY{p}{[}\PY{n}{temp\PYZus{}series}\PY{o}{.}\PY{n}{Source}\PY{p}{]}
+            \PY{n}{svd\PYZus{}temp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{svd\PYZus{}mat}\PY{p}{[}\PY{n}{in\PYZus{}idx}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,}\PY{n}{svd\PYZus{}mat}\PY{p}{[}\PY{n}{out\PYZus{}idx}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+            \PY{n}{svd\PYZus{}dot}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{svd\PYZus{}temp}\PY{p}{)}
+            \PY{n}{svd\PYZus{}mean\PYZus{}dest}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{svd\PYZus{}mat}\PY{p}{[}\PY{n}{in\PYZus{}idx}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n}{svd\PYZus{}mean\PYZus{}source}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{svd\PYZus{}mat}\PY{p}{[}\PY{n}{out\PYZus{}idx}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 18875038/18875038 [19:26<00:00, 16183.87it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kn}{import} \PY{n+nn}{pickle}
+        \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{svd\PYZus{}dot}\PY{p}{,}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}dot.p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{svd\PYZus{}mean\PYZus{}source}\PY{p}{,}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}mean\PYZus{}source.p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{svd\PYZus{}mean\PYZus{}dest}\PY{p}{,}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}mean\PYZus{}dest.p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}mappng above features into }
+         \PY{n}{hdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}dot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{svd\PYZus{}dot}
+         \PY{n}{hdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}mean\PYZus{}s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{svd\PYZus{}mean\PYZus{}source}
+         \PY{n}{hdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svd\PYZus{}mean\PYZus{}d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{svd\PYZus{}mean\PYZus{}dest}
+         \PY{n}{hdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log\PYZus{}svd\PYZus{}sd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{svd\PYZus{}mean\PYZus{}source}\PY{p}{)} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{svd\PYZus{}mean\PYZus{}dest}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k+kn}{from} \PY{n+nn}{pandas} \PY{k}{import} \PY{n}{HDFStore}\PY{p}{,}\PY{n}{DataFrame}
+         \PY{n}{hdf2} \PY{o}{=} \PY{n}{HDFStore}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{storage\PYZus{}all\PYZus{}features.h5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}saving to disk }
+         \PY{n}{hdf2}\PY{o}{.}\PY{n}{put}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{df1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{hdf}\PY{p}{,} \PY{n+nb}{format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{table}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data\PYZus{}columns}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{hdf2}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} reading and deleting some columns}
+        \PY{k+kn}{from} \PY{n+nn}{pandas} \PY{k}{import} \PY{n}{read\PYZus{}hdf}
+        \PY{n}{hdf} \PY{o}{=} \PY{n}{read\PYZus{}hdf}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{storage\PYZus{}all\PYZus{}features.h5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{df1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{mode}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{hdf}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log\PYZus{}svd\PYZus{}sd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{f1\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{hdf}\PY{p}{,}\PY{n}{listofones}\PY{p}{,}\PY{n}{stratify}\PY{o}{=}\PY{n}{listofones}\PY{p}{,}\PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.10}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{13}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{randint} \PY{k}{as} \PY{n}{sp\PYZus{}randint}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{uniform}
+        \PY{n}{param\PYZus{}dist} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{n\PYZus{}estimators}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{sp\PYZus{}randint}\PY{p}{(}\PY{l+m+mi}{105}\PY{p}{,}\PY{l+m+mi}{135}\PY{p}{)}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max\PYZus{}depth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{sp\PYZus{}randint}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min\PYZus{}samples\PYZus{}split}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{sp\PYZus{}randint}\PY{p}{(}\PY{l+m+mi}{120}\PY{p}{,}\PY{l+m+mi}{190}\PY{p}{)}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min\PYZus{}samples\PYZus{}leaf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{sp\PYZus{}randint}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{\PYZcb{}}
+        \PY{n}{clf} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{,}\PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{rf\PYZus{}random} \PY{o}{=} \PY{n}{RandomizedSearchCV}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{param\PYZus{}distributions}\PY{o}{=}\PY{n}{param\PYZus{}dist}\PY{p}{,}
+                                           \PY{n}{n\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{,}\PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{)}
+        \PY{n}{rf\PYZus{}random}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+        
+        \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{rf\PYZus{}random}\PY{p}{,}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rf\PYZus{}random\PYZus{}final.p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{clf\PYZus{}random}\PY{o}{.}\PY{n}{grid\PYZus{}scores\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} [mean: 0.97631, std: 0.00013, params: \{'max\_depth': 54, 'min\_samples\_leaf': 51, 'min\_samples\_split': 135, 'n\_estimators': 134\},
+         mean: 0.97629, std: 0.00013, params: \{'max\_depth': 72, 'min\_samples\_leaf': 48, 'min\_samples\_split': 164, 'n\_estimators': 123\},
+         mean: 0.97631, std: 0.00012, params: \{'max\_depth': 58, 'min\_samples\_leaf': 53, 'min\_samples\_split': 124, 'n\_estimators': 130\},
+         mean: 0.97671, std: 0.00014, params: \{'max\_depth': 70, 'min\_samples\_leaf': 30, 'min\_samples\_split': 121, 'n\_estimators': 112\},
+         mean: 0.97624, std: 0.00013, params: \{'max\_depth': 53, 'min\_samples\_leaf': 49, 'min\_samples\_split': 175, 'n\_estimators': 108\},
+         mean: 0.97676, std: 0.00013, params: \{'max\_depth': 70, 'min\_samples\_leaf': 28, 'min\_samples\_split': 121, 'n\_estimators': 127\}]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean test scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{clf\PYZus{}random}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean train scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{clf\PYZus{}random}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}train\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+mean test scores [0.9763108  0.97628636 0.97630894 0.97671344 0.97624188 0.97675791]
+mean train scores [0.97689315 0.9768383  0.97689703 0.97746001 0.97676634 0.97751521]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{clf\PYZus{}final} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{bootstrap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gini}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{70}\PY{p}{,} \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{,} \PY{n}{max\PYZus{}leaf\PYZus{}nodes}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}
+                    \PY{n}{min\PYZus{}impurity\PYZus{}decrease}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{min\PYZus{}impurity\PYZus{}split}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}
+                    \PY{n}{min\PYZus{}samples\PYZus{}leaf}\PY{o}{=}\PY{l+m+mi}{28}\PY{p}{,} \PY{n}{min\PYZus{}samples\PYZus{}split}\PY{o}{=}\PY{l+m+mi}{121}\PY{p}{,}
+                    \PY{n}{min\PYZus{}weight\PYZus{}fraction\PYZus{}leaf}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{127}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{,}\PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{clf\PYZus{}final}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+        \PY{n}{clf\PYZus{}final}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} RandomForestClassifier(bootstrap=True, class\_weight=None, criterion='gini',
+                    max\_depth=70, max\_features=11, max\_leaf\_nodes=None,
+                    min\_impurity\_decrease=0.0, min\_impurity\_split=None,
+                    min\_samples\_leaf=28, min\_samples\_split=121,
+                    min\_weight\_fraction\_leaf=0.0, n\_estimators=127, n\_jobs=-1,
+                    oob\_score=False, random\_state=25, verbose=0, warm\_start=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{y\PYZus{}pred\PYZus{}train} \PY{o}{=} \PY{n}{clf\PYZus{}final}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+        \PY{n}{y\PYZus{}pred\PYZus{}test} \PY{o}{=} \PY{n}{clf\PYZus{}final}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train f1 score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{f1\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}pred\PYZus{}train}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test f1 score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{f1\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}pred\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train f1 score 0.9775433278866003
+Test f1 score 0.9768795144676669
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train confusion\PYZus{}matrix}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plot\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}pred\PYZus{}train}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test confusion\PYZus{}matrix}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plot\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}pred\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train confusion\_matrix
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_180_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Test confusion\_matrix
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_180_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{roc\PYZus{}curve}\PY{p}{,} \PY{n}{auc}
+         \PY{n}{fpr}\PY{p}{,}\PY{n}{tpr}\PY{p}{,}\PY{n}{ths} \PY{o}{=} \PY{n}{roc\PYZus{}curve}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}pred\PYZus{}test}\PY{p}{)}
+         \PY{n}{auc\PYZus{}sc} \PY{o}{=} \PY{n}{auc}\PY{p}{(}\PY{n}{fpr}\PY{p}{,} \PY{n}{tpr}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{fpr}\PY{p}{,} \PY{n}{tpr}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{navy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ROC curve (area = }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{auc\PYZus{}sc}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{False Positive Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True Positive Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Receiver operating characteristic with test data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_181_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{features} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{columns}
+         \PY{n}{importances} \PY{o}{=} \PY{n}{clf\PYZus{}final}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}}
+         \PY{n}{indices} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{n}{importances}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{25}\PY{p}{:}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Feature Importances}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{indices}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{importances}\PY{p}{[}\PY{n}{indices}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{indices}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{p}{[}\PY{n}{features}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{indices}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Relative Importance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_182_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    improved some score and we can observe that Weight features and svd dot
+produts is somewhat better features than so many features.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{feature\PYZus{}importances} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{clf\PYZus{}final}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}}\PY{p}{,}\PY{n}{index} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{,}
+                                            \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{importance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{importance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{feature\PYZus{}importances}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:}                        importance
+         follows\_back             0.328643
+         inter\_followers          0.103482
+         jaccard\_for\_followers    0.090029
+         adar\_index               0.077946
+         shortest\_path            0.073936
+         inter\_followees          0.059496
+         jaccard\_for\_followees    0.055198
+         Weight\_f1                0.038678
+         Weight\_f2                0.029778
+         Weight\_f4                0.025750
+         Weight\_f3                0.023308
+         same\_comp                0.019615
+         num\_followees\_d          0.014875
+         svd\_dot                  0.010756
+         page\_rank\_d              0.007481
+         num\_followers\_s          0.005751
+         Weight\_out               0.005657
+         katz\_s                   0.005565
+         num\_followees\_s          0.005110
+         Weight\_in                0.003990
+         svd\_mean\_d               0.002942
+         svd\_mean\_s               0.002532
+         num\_followers\_d          0.002524
+         katz\_d                   0.001633
+         svd\_u\_d\_3                0.001161
+         svd\_v\_d\_3                0.001138
+         svd\_u\_s\_3                0.001052
+         svd\_v\_s\_3                0.001019
+         page\_rank\_s              0.000272
+         svd\_u\_s\_6                0.000167
+         svd\_v\_d\_6                0.000159
+         svd\_v\_s\_6                0.000135
+         svd\_u\_d\_6                0.000059
+         svd\_v\_d\_2                0.000054
+         svd\_v\_s\_2                0.000047
+         svd\_u\_s\_2                0.000027
+         svd\_u\_d\_2                0.000022
+         hubs\_s                   0.000006
+         authorities\_s            0.000004
+         authorities\_d            0.000004
+         hubs\_d                   0.000002
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
